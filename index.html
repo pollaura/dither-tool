@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Dither Tool&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #111;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: monospace;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>canvas {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>height: auto;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: black;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.controls {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.control-group {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="range"] {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 70%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 15px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: monospace;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #222;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Dither Tool 🎛️&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;input type="file" id="upload" accept="image/*"/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;canvas id="canvas"&gt;&lt;/canvas&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Brightness&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="brightness" min="-100" max="100" value="0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Contrast&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="contrast" min="-100" max="100" value="0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Noise Intensity&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="noise" min="0" max="100" value="20" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Wave Amplitude&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="waveAmp" min="0" max="50" value="10" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Wave Frequency&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="waveFreq" min="0.01" max="1" step="0.01" value="0.1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="control-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Bit Depth&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="bitDepth" min="1" max="8" value="1" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button id="saveBtn"&gt;💾 Save Image&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const canvas = document.getElementById('canvas');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const ctx = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const upload = document.getElementById('upload');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const saveBtn = document.getElementById('saveBtn');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const sliders = Array.from(document.querySelectorAll('input[type="range"]'));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let image = new Image();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>upload.addEventListener('change', e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const file = e.target.files[0];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (file) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const reader = new FileReader();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>reader.onload = ev =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>image.src = ev.target.result;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>reader.readAsDataURL(file);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>image.onload = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>canvas.width = image.width;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>canvas.height = image.height;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>draw();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>sliders.forEach(slider =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>slider.addEventListener('input', draw);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>saveBtn.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const link = document.createElement('a');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>link.download = 'dithered.png';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>link.href = canvas.toDataURL();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>link.click();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function draw() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!image.src) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.drawImage(image, 0, 0);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let data = imageData.data;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const brightness = parseInt(document.getElementById('brightness').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const contrast = parseInt(document.getElementById('contrast').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const noiseAmount = parseInt(document.getElementById('noise').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const waveAmp = parseFloat(document.getElementById('waveAmp').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const waveFreq = parseFloat(document.getElementById('waveFreq').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const bitDepth = parseInt(document.getElementById('bitDepth').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const levels = Math.pow(2, bitDepth);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Preprocess grayscale + adjustments</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let gray = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; data.length; i += 4) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let avg = (data[i] + data[i+1] + data[i+2]) / 3;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>avg += brightness;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>avg = (((avg - 128) * (contrast / 100 + 1)) + 128);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>avg += (Math.random() - 0.5) * noiseAmount;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>avg = Math.max(0, Math.min(255, avg));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>gray.push(avg);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Floyd–Steinberg dithering on grayscale values</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (let y = 0; y &lt; canvas.height; y++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (let x = 0; x &lt; canvas.width; x++) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const i = y * canvas.width + x;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const oldPixel = gray[i];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const newPixel = Math.round(oldPixel * (levels - 1) / 255) * (255 / (levels - 1));</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const error = oldPixel - newPixel;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>gray[i] = newPixel;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (x + 1 &lt; canvas.width) gray[i + 1] += error * 7 / 16;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (x &gt; 0 &amp;&amp; y + 1 &lt; canvas.height) gray[i + canvas.width - 1] += error * 3 / 16;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (y + 1 &lt; canvas.height) gray[i + canvas.width] += error * 5 / 16;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (x + 1 &lt; canvas.width &amp;&amp; y + 1 &lt; canvas.height) gray[i + canvas.width + 1] += error * 1 / 16;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Apply grayscale back to data array</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; gray.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let val = gray[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>data[i * 4] = data[i * 4 + 1] = data[i * 4 + 2] = val;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.putImageData(imageData, 0, 0);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Apply wave distortion</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const distorted = ctx.getImageData(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const tempCanvas = document.createElement('canvas');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tempCanvas.width = canvas.width;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tempCanvas.height = canvas.height;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const tempCtx = tempCanvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tempCtx.putImageData(distorted, 0, 0);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (let y = 0; y &lt; canvas.height; y++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let shift = Math.sin(y * waveFreq) * waveAmp;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>ctx.drawImage(tempCanvas, 0, y, canvas.width, 1, shift, y, canvas.width, 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
